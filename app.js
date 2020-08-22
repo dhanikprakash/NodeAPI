@@ -8,8 +8,11 @@ const Book = require("./models/bookModel");
 var app = express();
 bookRouter.route("/books")
 .get((req, res) => {
- 
-    Book.find((err, books) => {
+   const query = {};
+   if(req.query.genre){
+       query.genre = req.query.genre;
+   }
+    Book.find(query, (err, books) => {
         if(err){
            return  res.send(err);
         }
